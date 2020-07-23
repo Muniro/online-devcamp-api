@@ -4,6 +4,7 @@ const logger = require("./middleware/logger");
 const morgan = require("morgan");
 
 const connectDB = require("./config/db.js");
+const colors = require("colors");
 
 //Load config vars
 
@@ -29,14 +30,15 @@ const PORT = process.env.PORT || 5000;
 const server = app.listen(
   PORT,
   console.log(
-    `server listening on ${process.env.NODE_ENV} mode on port ${PORT}`
+    `server listening on ${process.env.NODE_ENV} mode on port ${PORT}`.yellow
+      .bold
   )
 );
 
 //Handle unhandled promise rejections
 
 process.on("onunhandledRejection", (err, promise) => {
-  console.log(`Error: ${err.message}`);
+  console.log(`Error: ${err.message}`.red);
 
   //close server and exit
   server.close(() => process.exit(1));
